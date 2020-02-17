@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { EditPostPageRoutingModule } from './edit-post-routing.module';
+
+import { EditPostPage } from './edit-post.page';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonicModule,
+    EditPostPageRoutingModule
+  ],
+  declarations: [EditPostPage]
+})
+export class EditPostPageModule {}

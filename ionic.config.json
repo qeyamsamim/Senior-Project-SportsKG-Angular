@@ -1,5 +1,7 @@
 {
   "name": "sportsKG",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

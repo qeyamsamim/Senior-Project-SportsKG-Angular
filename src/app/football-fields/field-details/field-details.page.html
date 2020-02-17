@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/football-fields"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Football Fields</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <div text-center *ngIf="isLoading">
+          <ion-spinner color="primary"></ion-spinner>
+        </div>
+        <ion-card *ngIf="!isLoading">
+          <ion-card-title padding text-center>{{ footballField.name }}</ion-card-title>
+          <ion-img role="button" (click)="onShowFullMap()" [src]="footballField.location.staticMapImgUrl"></ion-img>
+          <div padding>
+            <p>Address: {{ footballField.address }}</p>
+            <p>Contact Number: {{ footballField.contNum }}</p>
+            <div text-center>
+              <ion-button (click)="onBookField()">Book</ion-button>
+            </div>
+            <h6>Photos</h6>
+            <ion-img [src]="footballField.imgUrl"></ion-img>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

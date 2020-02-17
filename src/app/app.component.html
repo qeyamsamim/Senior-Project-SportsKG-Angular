@@ -1,3 +1,80 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="m1">
+    <ion-header>
+      <ion-toolbar  color="primary">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <!-- <ion-item> -->
+                <ion-avatar>
+                  <img src="https://gmsrp.cachefly.net/images/20/02/16/183f4fb7647bbacc21454d8cffda78d1/320.jpg">
+                </ion-avatar>
+                <ion-label padding>Sam</ion-label>
+              <!-- </ion-item> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="home">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="football-fields">
+            <ion-icon name="football" slot="start"></ion-icon>
+            <ion-label>Football Fields</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="other-sport-clubs">
+            <ion-icon name="help" slot="start"></ion-icon>
+            <ion-label>Sport Clubs</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="sport-stuff">
+            <ion-icon name="shirt" slot="start"></ion-icon>
+            <ion-label>Sport Stuff</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="news">
+            <ion-icon name="list-box" slot="start"></ion-icon>
+            <ion-label>News</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="forum">
+            <ion-icon name="clipboard" slot="start"></ion-icon>
+            <ion-label>Forum</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="sport-stuff">
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-label>Contact</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="chat">
+            <ion-icon name="chatboxes" slot="start"></ion-icon>
+            <ion-label>Chatbot</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click)="onLogout()">
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>

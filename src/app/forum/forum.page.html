@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Forum</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sm-size="8" offset-sm="2">
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea rows="4" formControlName="content"></ion-textarea>
+          </ion-item>
+          <div text-end>
+            <ion-button (click)="onCreatePost()" [disabled]="!form.valid">Post</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <div text-center *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-card *ngIf="!isLoading">
+    <ion-card-header>
+      <h3 text-center>Posts</h3>
+    </ion-card-header>
+    <ion-virtual-scroll [items]="loadedPosts">
+      <ion-item [routerLink]="['/', 'forum', post.id]" *virtualItem="let post">
+        <ion-card-content>
+          {{ post.content }}
+        </ion-card-content>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ion-card>
+</ion-content>

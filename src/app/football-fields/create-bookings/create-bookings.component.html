@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>{{ selectedField.name }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid text-center>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        Today
+      </ion-col>
+      <ion-col>
+        Tomorrow
+      </ion-col>
+      <ion-col>
+        3rd Day
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let times of bookingTimes" text-center>
+      <ion-col>{{ times }} - {{ times + 1 }}</ion-col>
+      <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, today)">{{ isBooked ? 'Booked' : ''}}</ion-button></ion-col>
+      <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, tomorrow)"></ion-button></ion-col>
+      <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, ThridDay)"></ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
