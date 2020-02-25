@@ -73,12 +73,6 @@ export class AuthenticationPage implements OnInit {
     // console.log(email, password, name, gender);
 
     this.authenticate(email, password);
-
-    // Adding User Details
-    // this.authService.addUser(
-    //   form.value.name,
-    //   form.value.gender
-    // )
   }
 
   private showAlert(message: string) {

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/main-page"></ion-back-button>
+    </ion-buttons>
+    <ion-title>User Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="5">
+        <img class="img-size" src="https://gmsrp.cachefly.net/images/20/02/16/183f4fb7647bbacc21454d8cffda78d1/320.jpg">
+      </ion-col>
+      <ion-col>
+        <div text-center>
+          <h4>Samim Qeyam</h4>
+          <ion-button type="submit" (click)="onProfileEdit()">Edit Profile</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-segment (ionChange)="onFilterUpdate($event)">
+    <ion-segment-button value="favorites" checked>Favorites</ion-segment-button>
+    <ion-segment-button value="history">Booking History</ion-segment-button>
+  </ion-segment>
+</ion-content>
