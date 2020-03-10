@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: ':fieldId',
     loadChildren: () => import('./field-details/field-details.module').then( m => m.FieldDetailsPageModule)
+  },
+  {
+    path: 'bookings',
+    loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
   }
 ];
 

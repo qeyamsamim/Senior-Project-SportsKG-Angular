@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { FieldDetailsPageRoutingModule } from './field-details-routing.module';
 
 import { FieldDetailsPage } from './field-details.page';
-import { CreateBookingsComponent } from '../create-bookings/create-bookings.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateBookingsComponent } from '../bookings/create-bookings/create-bookings.component';
 
 @NgModule({
   imports: [

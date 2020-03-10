@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FootballField } from './football-fields.model';
 import { BehaviorSubject } from 'rxjs';
-import { take, map, tap, delay, switchMap } from 'rxjs/operators';
+import { take, map, tap, switchMap, delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { PlaceLocation } from '../home/location.model';
+import { AuthService } from '../authentication/auth.service';
 
 interface FieldData {
   address: string;
@@ -23,7 +24,7 @@ export class FootballFieldsService {
     return this._footballFields.asObservable();
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   fetchFields() {
     return this.http
@@ -63,7 +64,8 @@ export class FootballFieldsService {
           fieldData.address,
           fieldData.imgUrl,
           fieldData.contactNum,
-          fieldData.location);
+          fieldData.location
+        );
       })
     );
   }

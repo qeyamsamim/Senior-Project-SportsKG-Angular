@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FootballField } from '../football-fields.model';
-import { ModalController, LoadingController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { FootballField } from '../../football-fields.model';
+import { ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-bookings',
@@ -16,12 +15,12 @@ export class CreateBookingsComponent implements OnInit {
   today = new Date();
   tomorrow = new Date(this.date.setDate(this.date.getDate() + 1));
   ThridDay = new Date(this.date.setDate(this.date.getDate() + 1));
-  isBooked = false;
+  isBooked = '';
+  myvar = 0;
 
   constructor(
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -35,14 +34,22 @@ export class CreateBookingsComponent implements OnInit {
     this.alertCtrl
       .create({
         header: 'Booking',
-        message: 'Do you want to book from ' + time + ' - ' + +(time + 1) + ' for Today ?',
+        message: 'Do you want to book from ' + time + ' - ' + +(time + 1) + ' for Today?',
         buttons: [
           {
             text: 'Yes',
             handler: () => {
-              this.modalCtrl.dismiss();
-              this.isBooked = true;
-              //this.router.navigate(['/football-fields']);
+                this.myvar = time;
+                this.isBooked = 'Booked';
+                this.modalCtrl.dismiss(
+                  {
+                    bookingData: {
+                      time,
+                      date: new Date(),
+                      bookingDate: date,
+                    }
+                  },
+                  'confirm');
             }
           },
           {
@@ -55,5 +62,4 @@ export class CreateBookingsComponent implements OnInit {
         alertEl.present();
       });
   }
-
 }

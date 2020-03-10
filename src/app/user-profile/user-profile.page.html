@@ -20,6 +20,15 @@
         </div>
       </ion-col>
     </ion-row>
+    <div *ngIf="isLoading" text-center>
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+      <div *ngFor="let bookings of loadedBookings">
+        <p>{{ bookings.bookedTime }}</p>
+        <p>{{ bookings.bookingTime }}</p>
+      </div>
+    </div>
   </ion-grid>
   <ion-segment (ionChange)="onFilterUpdate($event)">
     <ion-segment-button value="favorites" checked>Favorites</ion-segment-button>

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FootballField } from '../football-fields.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, ModalController, AlertController } from '@ionic/angular';
+import { NavController, ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { FootballFieldsService } from '../football-fields.service';
-import { CreateBookingsComponent } from '../create-bookings/create-bookings.component';
+import { CreateBookingsComponent } from '../bookings/create-bookings/create-bookings.component';
 import { Subscription } from 'rxjs';
 import { MapModalComponent } from 'src/app/shared/map-modal/map-modal.component';
+import { BookingsService } from '../bookings/bookings.service';
 
 @Component({
   selector: 'app-field-details',
@@ -23,7 +24,9 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     private footballFieldService: FootballFieldsService,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    private bookingService: BookingsService,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -64,6 +67,21 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     })
     .then(resultData => {
       console.log(resultData.data, resultData.role);
+      if (resultData.role === 'confirm') {
+        this.loadingCtrl
+          .create({message: 'Booking Field...'})
+          .then(loadingEl => {
+            loadingEl.present();
+            const data = resultData.data.bookingData;
+            this.bookingService.addBooking(
+              this.footballField.id,
+              data.date, data.time,
+              data.bookingDate
+            ).subscribe(() => {
+              loadingEl.dismiss();
+            });
+          });
+        }
     });
   }
 

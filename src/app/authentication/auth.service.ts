@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { EmailValidator } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { map, tap } from 'rxjs/operators';
+import { UserDetails } from './user-details.model';
 
 export interface AuthResponseData {
   idToken: string;
@@ -15,11 +15,18 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+export interface UserDetail {
+  userId: string;
+  name: string;
+  gender: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private _user = new BehaviorSubject<User>(null);
+  private _userDetails = new BehaviorSubject<UserDetails>(null);
 
   get userIsAuthenticated() {
     return this._user.asObservable().pipe(map(user => {
@@ -55,6 +62,15 @@ export class AuthService {
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`,
       { email: email, password: password }
     ).pipe(tap(this.setUserData.bind(this)));
+  }
+
+  userDetails(name: string, gender: string) {
+    this._userDetails.next(new UserDetails(Math.random().toString(), name, gender));
+    return this.http
+      .post<{name: string}>(
+        'https://sportskg-4a84d.firebaseio.com/user-detials.json',
+        {  id: null, name, gender }
+      ).pipe(tap(this.userDetails.bind(this)));
   }
 
   logout() {
