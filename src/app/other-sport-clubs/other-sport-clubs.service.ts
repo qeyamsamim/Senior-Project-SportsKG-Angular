@@ -94,4 +94,44 @@ export class OtherSportClubsService {
       })
     );
   }
+
+  updateClub(clubId: string, name: string, description: string, address: string, contactNum: string) {
+    let updatedClub: SportClubs[];
+    return this.sportClubs.pipe(
+      take(1), switchMap(club => {
+        const updatedClubIndex = club.findIndex(c => c.id === clubId);
+        updatedClub = [...club];
+        const oldClub = updatedClub[updatedClubIndex];
+        updatedClub[updatedClubIndex] = new SportClubs(
+          oldClub.id,
+          name,
+          description,
+          address,
+          contactNum,
+          oldClub.imgUrl,
+          oldClub.location
+        );
+        return this.http.put(
+          `https://sportskg-4a84d.firebaseio.com/sport-clubs/${clubId}.json`,
+          { ...updatedClub[updatedClubIndex], id: null }
+        );
+      }), tap(() => {
+        this._sportClubs.next(updatedClub);
+      })
+    );
+  }
+
+  deleteClub(clubId: string) {
+    return this.http.delete(
+      `https://sportskg-4a84d.firebaseio.com/sport-clubs/${clubId}.json`
+    ).pipe(
+      switchMap(() => {
+        return this.sportClubs;
+      }),
+      take(1),
+      tap(club => {
+        this._sportClubs.next(club.filter(c => c.id !== clubId));
+      })
+    );
+  }
 }

@@ -67,13 +67,21 @@ export class NewsService {
     );
   }
 
-  addNews(title: string, text: string) {
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+
+    return this.http
+    .post<{imageUrl: string, imagePath: string}>('https://us-central1-sportskg-4a84d.cloudfunctions.net/storeImage', uploadData);
+  }
+
+  addNews(title: string, text: string, imageUrl: string) {
     let generatedId: string;
     const newNews = new News(
       Math.random().toString(),
       title,
       text,
-      'https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg',
+      imageUrl,
       new Date()
     );
     return this.http
@@ -92,5 +100,43 @@ export class NewsService {
           this._news.next(news.concat(newNews));
         })
       );
+  }
+
+  updateField(newsId: string, title: string, text: string) {
+    let updatedNews: News[];
+    return this.news.pipe(
+      take(1), switchMap(news => {
+        const updatedNewsIndex = news.findIndex(n => n.id === newsId);
+        updatedNews = [...news];
+        const oldNews = updatedNews[updatedNewsIndex];
+        updatedNews[updatedNewsIndex] = new News(
+          oldNews.id,
+          title,
+          text,
+          oldNews.imgUrl,
+          oldNews.postDate
+        );
+        return this.http.put(
+          `https://sportskg-4a84d.firebaseio.com/news/${newsId}.json`,
+          { ...updatedNews[updatedNewsIndex], id: null }
+        );
+      }), tap(() => {
+        this._news.next(updatedNews);
+      })
+    );
+  }
+
+  deleteNews(newsId: string) {
+    return this.http.delete(
+      `https://sportskg-4a84d.firebaseio.com/news/${newsId}.json`
+    ).pipe(
+      switchMap(() => {
+        return this.news;
+      }),
+      take(1),
+      tap(news => {
+        this._news.next(news.filter(n => n.id !== newsId));
+      })
+    );
   }
 }

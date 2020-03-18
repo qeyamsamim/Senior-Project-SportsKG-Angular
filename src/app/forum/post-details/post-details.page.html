@@ -16,10 +16,29 @@
         </div>
         <ion-card *ngIf="!isLoading">
           <div padding>
-            <p>{{ post.content }}</p>
+            <p>{{ post.posterId }}: {{ post.content }}</p>
             <p text-end>Posted on: {{ post.postDate | date:'dd/MM/yyyy'}}</p>
           </div>
         </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <form [formGroup]="form">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" sm-size="8" offset-sm="2">
+                <ion-item>
+                  <ion-label position="floating">Reply</ion-label>
+                  <ion-textarea rows="3" formControlName="comment"></ion-textarea>
+                </ion-item>
+                <div text-end>
+                  <ion-button (click)="onCreateComment()">Post</ion-button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>

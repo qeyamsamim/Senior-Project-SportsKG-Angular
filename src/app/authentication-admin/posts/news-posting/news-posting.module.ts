@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { NewsPostingPageRoutingModule } from './news-posting-routing.module';
 
 import { NewsPostingPage } from './news-posting.page';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     IonicModule,
-    NewsPostingPageRoutingModule
+    NewsPostingPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [NewsPostingPage]
 })

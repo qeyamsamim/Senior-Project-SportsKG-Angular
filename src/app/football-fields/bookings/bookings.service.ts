@@ -49,7 +49,7 @@ export class BookingsService {
         bookingTime
       );
       return this.http.post<{name: string}>(
-        'https://sportskg-4a84d.firebaseio.com/bookings.json',
+        `https://sportskg-4a84d.firebaseio.com/bookings.json`,
         {...newBooking, id: null}
       );
     }), switchMap(resData => {
@@ -72,6 +72,40 @@ export class BookingsService {
         `https://sportskg-4a84d.firebaseio.com/bookings.json?orderBy="userId"&equalTo="${
           userId
         }"`
+      );
+    }),
+    map(bookingData => {
+      const bookings = [];
+      for (const key in bookingData) {
+        if (bookingData.hasOwnProperty(key)) {
+          bookings.push(
+            new Booking(
+              key,
+              bookingData[key].fieldId,
+              bookingData[key].fieldImage,
+              bookingData[key].fieldName,
+              bookingData[key].userId,
+              bookingData[key].bookedDate,
+              bookingData[key].bookedTime,
+              bookingData[key].bookingTime
+            )
+          );
+        }
+      }
+      return bookings;
+    }), tap(bookings => {
+      this._bookings.next(bookings);
+    }));
+  }
+
+  fetchFieldBookings(fieldId: string) {
+    const todayDate = new Date().toLocaleDateString();
+    return this.authService.userId.pipe(switchMap(userId => {
+      if (!userId) {
+        throw new Error('User not found!');
+      }
+      return this.http.get<{[key: string]: BookingData }>(
+        `https://sportskg-4a84d.firebaseio.com/bookings.json`
       );
     }),
     map(bookingData => {

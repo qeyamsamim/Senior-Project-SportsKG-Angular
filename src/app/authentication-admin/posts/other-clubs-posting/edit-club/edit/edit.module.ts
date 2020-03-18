@@ -4,17 +4,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PostsPageRoutingModule } from './posts-routing.module';
+import { EditPageRoutingModule } from './edit-routing.module';
 
-import { PostsPage } from './posts.page';
-import { SharedModule } from '../../shared/shared.module';
+import { EditPage } from './edit.page';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     IonicModule,
-    PostsPageRoutingModule
+    EditPageRoutingModule
   ],
-  declarations: [PostsPage]
+  declarations: [EditPage]
 })
-export class PostsPageModule {}
+export class EditPageModule {}

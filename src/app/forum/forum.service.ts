@@ -3,6 +3,7 @@ import { Post } from './forum.model';
 import { BehaviorSubject } from 'rxjs';
 import { take, map, tap, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../authentication/auth.service';
 
 interface PostData {
   content: string;
@@ -21,11 +22,12 @@ export class ForumService {
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   fetchPosts() {
-    return this.http.get<{[key: string]: PostData}>('https://sportskg-4a84d.firebaseio.com/posts.json')
+    return this.http.get<{[key: string]: PostData}>('https://sportskg-4a84d.firebaseio.com/posts.json?orderBy="postDate"')
     .pipe(map(resData => {
       const posts = [];
       for (const key in resData) {
@@ -53,25 +55,31 @@ export class ForumService {
 
   addPost(content: string) {
     let generatedId: string;
-    const newPost = new Post(
-      Math.random().toString(),
-      content,
-      new Date(),
-      'abc'
-    );
-    return this.http.post<{name: string}>(
-      'https://sportskg-4a84d.firebaseio.com/posts.json',
-      { ...newPost, id: null }
-    ).pipe(
-      switchMap(resData => {
-        generatedId = resData.name;
-        return this.posts;
-      }),
-      take(1),
-      tap(posts => {
-        newPost.id = generatedId;
-        this._posts.next(posts.concat(newPost));
-      })
+    let newPost: Post;
+    return this.authService.userId.pipe(take(1), switchMap(userId => {
+      if (!userId) {
+        throw new Error('No user id found!');
+      }
+      newPost = new Post(
+        Math.random().toString(),
+        content,
+        new Date(),
+        userId
+      );
+      return this.http.post<{name: string}>(
+        'https://sportskg-4a84d.firebaseio.com/posts.json',
+        { ...newPost, id: null }
+      );
+    }), switchMap(resData => {
+          generatedId = resData.name;
+          return this.posts;
+        }),
+        take(1),
+        tap(posts => {
+          newPost.id = generatedId;
+          this._posts.next(posts.concat(newPost));
+          }
+        )
     );
   }
 }

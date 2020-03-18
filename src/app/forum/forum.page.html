@@ -28,12 +28,12 @@
   </div>
   <ion-card *ngIf="!isLoading">
     <ion-card-header>
-      <h3 text-center>Posts</h3>
+      <h3 text-center>Posts</h3>j
     </ion-card-header>
     <ion-virtual-scroll [items]="loadedPosts">
       <ion-item [routerLink]="['/', 'forum', post.id]" *virtualItem="let post">
         <ion-card-content>
-          {{ post.content }}
+          <p>{{ post.posterId }}: {{ post.content }}</p>
         </ion-card-content>
       </ion-item>
     </ion-virtual-scroll>

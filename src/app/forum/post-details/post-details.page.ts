@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { ForumService } from '../forum.service';
 import { Subscription } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-details',
@@ -14,6 +15,7 @@ export class PostDetailsPage implements OnInit, OnDestroy {
   post: Post;
   postSub: Subscription;
   isLoading = false;
+  form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +49,17 @@ export class PostDetailsPage implements OnInit, OnDestroy {
           }]
         }).then(alertEl => alertEl.present());
       });
+      this.form = new FormGroup({
+        comment: new FormControl(null, {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        })
+      });
     });
+  }
+
+  onCreateComment() {
+    console.log(this.form.value);
   }
 
   ngOnDestroy() {

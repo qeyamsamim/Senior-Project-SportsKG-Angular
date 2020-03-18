@@ -17,6 +17,7 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
   footballField: FootballField;
   fieldSub: Subscription;
   isLoading = false;
+  fieldId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
       this.isLoading = true;
       this.fieldSub = this.footballFieldService.getField(paramMap.get('fieldId')).subscribe(field => {
         this.footballField = field;
+        this.fieldId = field.id;
         this.isLoading = false;
       },
       // It checks if a football field id exists or not.
