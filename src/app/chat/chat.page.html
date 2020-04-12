@@ -7,20 +7,24 @@
   </ion-toolbar>
 </ion-header>
 
-<iframe height="90%" width="100%" src="https://bot.dialogflow.com/8f13ba86-e4f2-4598-b8a5-b839be37d8b3"></iframe>
-
-<!-- <ion-content padding>
+<ion-content padding>
   <ion-grid>
-    <ion-row>
-      <ion-col size="9" class="message user-message">
-        <b>Samim: </b>
-        <span>Salam Mursal</span>
-        <p text-right>20-02-2020</p>
+    <ion-row *ngFor="let message of messages | async">
+      <ion-col size="1.5" *ngIf="message.sentBy === 'bot'">
+        <ion-avatar>
+          <img class="a" src="assets\icon\SportsKG.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="8" *ngIf="message.sentBy === 'bot'">
+        <div class="message bot-message" >
+          <span>{{ message.content }}</span>
+          <p text-right>20-02-2020</p>
+        </div>
       </ion-col>
 
-      <ion-col offset="3" size="9" class="message user-message">
+      <ion-col offset="3" size="9" class="message user-message" *ngIf="message.sentBy === 'user'">
         <b>You: </b>
-        <span>Salam Mursal</span>
+        <span>{{ message.content }}</span>
         <p text-right>20-02-2020</p>
       </ion-col>
     </ion-row>
@@ -31,13 +35,13 @@
   <ion-toolbar>
     <ion-row>
       <ion-col size="10">
-        <ion-input type="text" class="msg-input" placeholder="Type here..."></ion-input>
+        <ion-input type="text" [(ngModel)]="formValue" (keyup.enter)="sendMessage()" class="msg-input" placeholder="Type here..."></ion-input>
       </ion-col>
       <ion-col size="2">
-        <ion-button>
+        <ion-button (click)="sendMessage()">
           <ion-icon name="send" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>
-</ion-footer> -->
+</ion-footer>

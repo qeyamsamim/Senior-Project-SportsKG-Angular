@@ -18,13 +18,13 @@
           <ion-card-title padding text-center>{{ footballField.name }}</ion-card-title>
           <ion-img role="button" (click)="onShowFullMap()" [src]="footballField.location.staticMapImgUrl"></ion-img>
           <div padding>
-            <p>Address: {{ footballField.address }}</p>
-            <p>Contact Number: {{ footballField.contNum }}</p>
+            <p><b>Address: </b>{{ footballField.address }}</p>
+            <p><b>Contact Number: </b>{{ footballField.contNum }}</p>
             <div text-center>
               <ion-button (click)="onBookField()">Book</ion-button>
             </div>
             <h6>Photos</h6>
-            <ion-img [src]="footballField.imgUrl"></ion-img>
+            <ion-img [src]="footballField.imgUrl"></ion-img> 
           </div>
         </ion-card>
       </ion-col>

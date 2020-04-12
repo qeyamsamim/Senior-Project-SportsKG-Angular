@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   googleMapsAPIKey: 'AIzaSyDXs3QlQYamZru8isag24zZ1_o-sCBIEuU',
-  firebaseAPIKey: 'AIzaSyD-AdY5tuHj58F5PdxShbSc0He3qNsWRZQ'
+  firebaseAPIKey: 'AIzaSyD-AdY5tuHj58F5PdxShbSc0He3qNsWRZQ',
+
+  dialogflow: {
+    chatbot: '7b4c6e8b107b4bb2b5a73c3861a5aea2'
+  }
 };
 
 /*
