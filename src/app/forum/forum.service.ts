@@ -27,7 +27,7 @@ export class ForumService {
   ) { }
 
   fetchPosts() {
-    return this.http.get<{[key: string]: PostData}>('https://sportskg-4a84d.firebaseio.com/posts.json?orderBy="postDate"')
+    return this.http.get<{[key: string]: PostData}>('https://sportskg-4a84d.firebaseio.com/posts.json')
     .pipe(map(resData => {
       const posts = [];
       for (const key in resData) {

@@ -26,13 +26,17 @@
     </ion-row>
     <ion-row *ngFor="let times of bookingTimes" text-center>
       <ion-col>{{ times }} - {{ times + 1 }}</ion-col>
-      <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, today)">{{ 5 === times ? 'Booked' : '' }}</ion-button></ion-col>
+      <ion-col class="my-col" ion-button><ion-button expand="block" (click)="onClickBooking(times, today)">{{ isBooked ? 'Booked' : '' }}</ion-button></ion-col>
       <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, tomorrow)"></ion-button></ion-col>
       <ion-col class="my-col"><ion-button expand="block" (click)="onClickBooking(times, ThridDay)"></ion-button></ion-col>
     </ion-row>
   </ion-grid>
-  <div *ngFor="let bookings of loadedBookings">
-    <p>{{ bookings.fieldId }}</p>
-    <p>{{ bookings.bookingTime }}</p>
-  </div>
+  <!-- <div *ngFor="let bookings of loadedBookings">
+    <div *ngIf="today === bookings.bookingTime">
+      <p>{{ bookings.fieldId }}</p>
+      <p>{{ bookings.bookingTime }}</p>
+      <p>{{ bookings.bookedTime}}</p>
+    </div> 
+  </div> -->
+
 </ion-content>

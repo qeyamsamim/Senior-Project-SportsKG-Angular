@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChatService, Message } from './chat.service';
 import { Observable } from 'rxjs';
 import { scan } from 'rxjs/operators';
+//import { Content } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat',
@@ -9,6 +10,8 @@ import { scan } from 'rxjs/operators';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
+  //@ViewChild(Content) content: Content;
+
   messages: Observable<Message[]>;
   formValue: string;
 
@@ -24,5 +27,13 @@ export class ChatPage implements OnInit {
     this.chatService.converse(this.formValue);
     this.formValue = '';
   }
+
+  // GoToBottom() {
+  //   setTimeout(() => {
+  //     if(this.content._scroll) {
+  //       this.content.scrollToBottom();
+  //     }
+  //   }, 500);
+  // }
 
 }

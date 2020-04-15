@@ -31,7 +31,7 @@ export class BookingsService {
     private http: HttpClient
   ) { }
 
-  addBooking(fieldId: string, bookedDate: Date, bookedTime: number, bookingTime: Date) {
+  addBooking(fieldId: string, fieldName: string, bookedDate: Date, bookedTime: number, bookingTime: Date) {
     let generatedId: string;
     let newBooking: Booking;
     return this.authService.userId.pipe(take(1), switchMap(userId => {
@@ -41,8 +41,7 @@ export class BookingsService {
       newBooking = new Booking(
         Math.random().toString(),
         fieldId,
-        'fieldName',
-        'https://leeuflames.com/images/2015/9/22/soccer_field_001.jpg',
+        fieldName,
         userId,
         bookedDate,
         bookedTime,
@@ -82,7 +81,6 @@ export class BookingsService {
             new Booking(
               key,
               bookingData[key].fieldId,
-              bookingData[key].fieldImage,
               bookingData[key].fieldName,
               bookingData[key].userId,
               bookingData[key].bookedDate,
@@ -105,7 +103,7 @@ export class BookingsService {
         throw new Error('User not found!');
       }
       return this.http.get<{[key: string]: BookingData }>(
-        `https://sportskg-4a84d.firebaseio.com/bookings.json`
+        `https://sportskg-4a84d.firebaseio.com/bookings.json?orderBy="fieldId"&equalTo="${fieldId}"`
       );
     }),
     map(bookingData => {
@@ -116,7 +114,6 @@ export class BookingsService {
             new Booking(
               key,
               bookingData[key].fieldId,
-              bookingData[key].fieldImage,
               bookingData[key].fieldName,
               bookingData[key].userId,
               bookingData[key].bookedDate,
@@ -130,5 +127,19 @@ export class BookingsService {
     }), tap(bookings => {
       this._bookings.next(bookings);
     }));
+  }
+
+  deleteBooking(bookingId: string) {
+    return this.http.delete(
+      `https://sportskg-4a84d.firebaseio.com/bookings/${bookingId}.json`
+    ).pipe(
+      switchMap(() => {
+        return this.bookings;
+      }),
+      take(1),
+      tap(booking => {
+        this._bookings.next(booking.filter(b => b.id !== bookingId));
+      })
+    );
   }
 }

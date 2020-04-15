@@ -7,6 +7,8 @@ import { CreateBookingsComponent } from '../bookings/create-bookings/create-book
 import { Subscription } from 'rxjs';
 import { MapModalComponent } from 'src/app/shared/map-modal/map-modal.component';
 import { BookingsService } from '../bookings/bookings.service';
+import { FavoriteField } from './favorite-field.model';
+import { FavoriteFieldService } from './favorite-field.service';
 
 @Component({
   selector: 'app-field-details',
@@ -27,7 +29,8 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     private alertCtrl: AlertController,
     private router: Router,
     private bookingService: BookingsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private favoriteFieldService: FavoriteFieldService
   ) { }
 
   ngOnInit() {
@@ -77,6 +80,7 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
             const data = resultData.data.bookingData;
             this.bookingService.addBooking(
               this.footballField.id,
+              this.footballField.name,
               data.date, data.time,
               data.bookingDate
             ).subscribe(() => {
@@ -87,6 +91,19 @@ export class FieldDetailsPage implements OnInit, OnDestroy {
     });
   }
 
+  // Adds Favorite Football Fields
+  onAddFavField() {
+    this.loadingCtrl.create({
+      message: 'Adding to Favorite Football Fields ...'
+    }).then(loadingEl => {
+      loadingEl.present();
+      this.favoriteFieldService.addFavField(this.fieldId, this.footballField.name, this.footballField.imgUrl).subscribe(() => {
+        loadingEl.dismiss();
+      });
+    });
+  }
+
+  // Shows the location of Football Fields
   onShowFullMap() {
     this.modalCtrl.create({
       component: MapModalComponent,

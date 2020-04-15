@@ -11,7 +11,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="5">
-        <img class="img-size" src="https://gmsrp.cachefly.net/images/20/02/16/183f4fb7647bbacc21454d8cffda78d1/320.jpg">
+        <img class="img-size" src="../../assets/icon/default-image.png">
       </ion-col>
       <ion-col>
         <div text-center>
@@ -20,18 +20,45 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-segment (ionChange)="onChangeSegmentBtns($event)">
+      <ion-segment-button value="favorites" checked>Favorites</ion-segment-button>
+      <ion-segment-button value="history">Booking History</ion-segment-button>
+    </ion-segment>
     <div *ngIf="isLoading" text-center>
       <ion-spinner color="primary"></ion-spinner>
     </div>
-    <div *ngIf="!isLoading">
-      <div *ngFor="let bookings of loadedBookings">
-        <p>{{ bookings.bookedTime }}</p>
-        <p>{{ bookings.bookingTime }}</p>
-      </div>
+    <div *ngIf="!isLoading && !isBookingHistory">
+      <ion-row>
+        <ion-item-sliding *ngFor="let bookings of loadedBookings" #slidingItem>
+          <ion-item>
+            <ion-label>{{ bookings.fieldName }}</ion-label>
+            <ion-note slot="end">{{ bookings.bookedTime}}-{{ 1 + bookings.bookedTime}}</ion-note>
+            <ion-note slot="end">{{ bookings.bookingTime}}</ion-note>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option (click)="onDeleteBtn(bookings.id, slidingItem)" color="danger">
+              <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-row>
+    </div>
+    <div *ngIf="!isLoading && isBookingHistory">
+      <ion-item-sliding *ngFor="let field of loadedFields" #slidingItem>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-img [src]="field.fieldImage"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{field.fieldName}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option (click)="onDeleteField(field.id, slidingItem)" color="danger">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </div>
   </ion-grid>
-  <ion-segment (ionChange)="onFilterUpdate($event)">
-    <ion-segment-button value="favorites" checked>Favorites</ion-segment-button>
-    <ion-segment-button value="history">Booking History</ion-segment-button>
-  </ion-segment>
 </ion-content>

@@ -15,7 +15,7 @@
           <ion-spinner color="primary"></ion-spinner>
         </div>
         <ion-virtual-scroll [items]="loadedFootballFields" *ngIf="!isLoading && loadedFootballFields.length > 0">
-          <ion-item [routerLink]="['/', 'football-fields', fields.id]" detail *virtualItem="let fields">
+          <ion-item [routerLink]="['/', 'football-fields', fields.id]" *virtualItem="let fields">
             <ion-thumbnail slot="start">
               <ion-img [src]="fields.imgUrl"></ion-img>
             </ion-thumbnail>
@@ -23,6 +23,7 @@
               <h2>{{ fields.name }}</h2>
               <p><ion-icon src="assets\icon\location.svg"></ion-icon> {{ fields.address }}</p>
             </ion-label>
+            <ion-button item-end clear>View</ion-button>
           </ion-item>
         </ion-virtual-scroll>
       </ion-col>
