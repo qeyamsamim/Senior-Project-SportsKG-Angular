@@ -26,8 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'authentication-admin',
-    loadChildren: () => import('./authentication-admin/authentication-admin.module').then( m => m.AuthenticationAdminPageModule),
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./authentication-admin/authentication-admin.module').then( m => m.AuthenticationAdminPageModule)
   },
   {
     path: 'other-sport-clubs',

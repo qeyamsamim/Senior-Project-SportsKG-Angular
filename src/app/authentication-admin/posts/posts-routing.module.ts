@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'news-posting',
     loadChildren: () => import('./news-posting/news-posting.module').then( m => m.NewsPostingPageModule)
+  },
+  {
+    path: 'user-messages',
+    loadChildren: () => import('./user-messages/user-messages.module').then( m => m.UserMessagesPageModule)
   }
 ];
 
