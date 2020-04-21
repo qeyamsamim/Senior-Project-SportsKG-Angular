@@ -63,7 +63,7 @@ export class BookingsService {
   }
 
   fetchUserBookings() {
-    return this.authService.userId.pipe(switchMap(userId => {
+    return this.authService.userId.pipe(take(1), switchMap(userId => {
       if (!userId) {
         throw new Error('User not found!');
       }
@@ -98,7 +98,7 @@ export class BookingsService {
 
   fetchFieldBookings(fieldId: string) {
     const todayDate = new Date().toLocaleDateString();
-    return this.authService.userId.pipe(switchMap(userId => {
+    return this.authService.userId.pipe(take(1), switchMap(userId => {
       if (!userId) {
         throw new Error('User not found!');
       }

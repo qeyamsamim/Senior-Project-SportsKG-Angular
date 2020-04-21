@@ -68,15 +68,16 @@ export class AuthenticationPage implements OnInit {
 
     const email = form.value.email;
     const password = form.value.password;
-    const name = form.value.name;
-    const gender = form.value.gender;
+    // const name = form.value.name;
+    // const gender = form.value.gender;
     // console.log(email, password, name, gender);
-    if (this.isLogin) {
-      this.authenticate(email, password);
-    } else {
-      this.authenticate(email, password);
-      this.authService.userDetails(name, gender);
-    }
+    //if (this.isLogin) {
+    this.authenticate(email, password);
+    form.reset();
+    //} else {
+      //this.authenticate(email, password);
+      //this.authService.userDetails(name, gender);
+    //}
   }
 
   private showAlert(message: string) {
