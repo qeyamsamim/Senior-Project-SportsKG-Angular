@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './post-news/post-news.module#PostNewsPageModule'
+            loadChildren: () => import('./post-news/post-news.module').then( m => m.PostNewsPageModule)
           }
         ]
       },
@@ -22,11 +22,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './edit-news/edit-news.module#EditNewsPageModule'
+            loadChildren: () => import('./edit-news/edit-news.module').then( m => m.EditNewsPageModule)
           },
           {
             path: 'edit/:newsId',
-            loadChildren: './edit-news/edit/edit.module#EditPageModule'
+            loadChildren: () => import('./edit-news/edit/edit.module').then( m => m.EditPageModule)
           }
         ]
       },

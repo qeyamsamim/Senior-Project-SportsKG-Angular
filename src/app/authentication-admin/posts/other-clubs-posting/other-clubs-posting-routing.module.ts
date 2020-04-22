@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './post-club/post-club.module#PostClubPageModule'
+            loadChildren: () => import('./post-club/post-club.module').then( m => m.PostClubPageModule)
           }
         ]
       },
@@ -22,11 +22,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './edit-club/edit-club.module#EditClubPageModule'
+            loadChildren: () => import('./edit-club/edit-club.module').then( m => m.EditClubPageModule)
           },
           {
             path: 'edit/:clubId',
-            loadChildren: './edit-club/edit/edit.module#EditPageModule'
+            loadChildren: () => import('./edit-club/edit/edit.module').then( m => m.EditPageModule)
           }
         ]
       },
@@ -42,17 +42,6 @@ const routes: Routes = [
     redirectTo: '/authentication-admin/posts/other-clubs-posting/tabs/post-club',
     pathMatch: 'full'
   }
-  //   path: '',
-  //   component: OtherClubsPostingPage
-  // },
-  // {
-  //   path: 'post-club',
-  //   loadChildren: () => import('./post-club/post-club.module').then( m => m.PostClubPageModule)
-  // },
-  // {
-  //   path: 'edit-club',
-  //   loadChildren: () => import('./edit-club/edit-club.module').then( m => m.EditClubPageModule)
-  // }
 ];
 
 @NgModule({

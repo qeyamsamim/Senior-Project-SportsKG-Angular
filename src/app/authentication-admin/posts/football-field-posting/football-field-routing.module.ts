@@ -12,7 +12,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: './post/post.module#PostPageModule'
+                        loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
                     }
                 ]
             },
@@ -21,24 +21,24 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: './edit/edit.module#EditPageModule'
+                        loadChildren: () => import('./edit/edit.module').then( m => m.EditPageModule)
                     },
                     {
                         path: 'edit-post/:fieldId',
-                        loadChildren: './edit/edit-post/edit-post.module#EditPostPageModule'
+                        loadChildren: () => import('./edit/edit-post/edit-post.module').then( m => m.EditPostPageModule)
                     }
                 ]
             },
             {
                 path: '',
-                redirectTo: '/football-field-posting/tabs/post',
+                redirectTo: './football-field-posting/tabs/post',
                 pathMatch: 'full'
             }
         ]
     },
     {
         path: '',
-        redirectTo: '/football-field-posting/tabs/post',
+        redirectTo: './football-field-posting/tabs/post',
         pathMatch: 'full'
     }
 ];

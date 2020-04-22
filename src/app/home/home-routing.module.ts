@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
         {
           path: '',
-          loadChildren: './main-page/main-page.module#MainPagePageModule'
+          loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
         }
       ]},
       {
@@ -21,7 +21,7 @@ const routes: Routes = [
         children: [
         {
           path: '',
-          loadChildren: './discover/discover.module#DiscoverPageModule'
+          loadChildren: () => import('./discover/discover.module').then( m => m.DiscoverPageModule)
         }
       ]},
       {
