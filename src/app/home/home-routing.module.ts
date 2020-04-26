@@ -14,6 +14,10 @@ const routes: Routes = [
         {
           path: '',
           loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
+        },
+        {
+          path: ':newsId',
+          loadChildren: () => import('../news/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
         }
       ]},
       {
@@ -22,6 +26,14 @@ const routes: Routes = [
         {
           path: '',
           loadChildren: () => import('./discover/discover.module').then( m => m.DiscoverPageModule)
+        },
+        {
+          path: ':fieldId',
+          loadChildren: () => import('../football-fields/field-details/field-details.module').then( m => m.FieldDetailsPageModule)
+        },
+        {
+          path: ':stuffId',
+          loadChildren: () => import('../sport-stuff/stuff-details/stuff-details.module').then( m => m.StuffDetailsPageModule)
         }
       ]},
       {

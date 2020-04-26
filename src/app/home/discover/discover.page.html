@@ -7,6 +7,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-searchbar></ion-searchbar>
+<ion-content>
+  <div *ngIf="isLoading" text-center>
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-card *ngIf="!isLoading">
+    <ion-card-title text-center padding>Top Rated Football Fields</ion-card-title>
+    <ion-slides pager="true" [options]="slideOptions">
+      <ion-slide *ngFor="let fields of loadedFootballFields | slice:0:3">
+        <img [src]="fields.imgUrl" [routerLink]="['/', 'football-fields', fields.id]"/>
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+  <ion-card>
+    <ion-card-title padding text-center>Find out Sport Stuffs</ion-card-title>
+    <ion-list *ngIf="!isLoading">
+      <ion-item *ngFor="let stuffs of loadedStuff | slice:0:5" [routerLink]="['/', 'sport-stuff', stuffs.id]">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="stuffs.imgUrl"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ stuffs.name }}</h2>
+          <ion-text><ion-icon src="assets\icon\price.svg"></ion-icon> {{ stuffs.price }}</ion-text>
+        </ion-label>
+        <ion-button item-end clear>Go</ion-button>
+      </ion-item>
+      <div text-center padding>
+        <ion-button clear [routerLink]="['/', 'sport-stuff']">View More</ion-button>
+      </div>
+    </ion-list>
+  </ion-card>
 </ion-content>

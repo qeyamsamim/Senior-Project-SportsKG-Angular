@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col size-sm="3" offset-sm="3">
@@ -15,16 +15,16 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-slides pager autoplay="1500" loop="true">
-    <ion-slide>
-      <p>Hello 1</p>    
-    </ion-slide>
-    <ion-slide>
-      <p>Hello 2</p>    
-    </ion-slide>
-    <ion-slide>
-      <p>Hello 3</p>    
-    </ion-slide>    
-  </ion-slides> -->
+  <div *ngIf="isLoading" text-center>
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-card *ngIf="!isLoading">
+    <ion-card-title text-center padding>Latest News</ion-card-title>
+    <ion-slides [options]="other">
+      <ion-slide *ngFor="let news of loadedNews | slice:0:4">
+        <img [src]="news.imgUrl" [routerLink]="['/', 'news', news.id]"/>
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
 </ion-content>
 
