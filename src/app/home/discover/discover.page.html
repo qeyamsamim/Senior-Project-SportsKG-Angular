@@ -14,14 +14,16 @@
   <ion-card *ngIf="!isLoading">
     <ion-card-title text-center padding>Top Rated Football Fields</ion-card-title>
     <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide *ngFor="let fields of loadedFootballFields | slice:0:3">
-        <img [src]="fields.imgUrl" [routerLink]="['/', 'football-fields', fields.id]"/>
+      <ion-slide class="my-design" *ngFor="let fields of loadedFootballFields | slice:0:3">
+        <div class="my-image">
+          <img class="image" [src]="fields.imgUrl" [routerLink]="['/', 'football-fields', fields.id]"/>
+        </div>
       </ion-slide>
     </ion-slides>
   </ion-card>
   <ion-card>
-    <ion-card-title padding text-center>Find out Sport Stuffs</ion-card-title>
     <ion-list *ngIf="!isLoading">
+      <ion-card-title padding text-center>Find out Sport Stuffs</ion-card-title>
       <ion-item *ngFor="let stuffs of loadedStuff | slice:0:5" [routerLink]="['/', 'sport-stuff', stuffs.id]">
         <ion-thumbnail slot="start">
           <ion-img [src]="stuffs.imgUrl"></ion-img>

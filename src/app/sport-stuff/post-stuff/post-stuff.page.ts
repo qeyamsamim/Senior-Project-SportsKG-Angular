@@ -34,7 +34,11 @@ function base64toBlob(base46Data, contentType) {
 })
 export class PostStuffPage implements OnInit {
   form: FormGroup;
-  constructor(private sportStuffService: SportStuffService, private router: Router, private loadingCtrl: LoadingController) { }
+  constructor(
+    private sportStuffService: SportStuffService,
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) { }
 
   ngOnInit() {
     this.form = new FormGroup({

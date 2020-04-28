@@ -8,7 +8,7 @@ import { AuthService } from '../authentication/auth.service';
 
 interface FieldData {
   address: string;
-  contactNum: string;
+  contNum: string;
   imgUrl: string;
   name: string;
   location: PlaceLocation;
@@ -39,7 +39,7 @@ export class FootballFieldsService {
               resData[key].name,
               resData[key].address,
               resData[key].imgUrl,
-              resData[key].contactNum,
+              resData[key].contNum,
               resData[key].location
             )
           );
@@ -63,7 +63,7 @@ export class FootballFieldsService {
           fieldData.name,
           fieldData.address,
           fieldData.imgUrl,
-          fieldData.contactNum,
+          fieldData.contNum,
           fieldData.location
         );
       })

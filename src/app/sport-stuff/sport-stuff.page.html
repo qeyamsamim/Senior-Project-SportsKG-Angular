@@ -18,12 +18,14 @@
   </div>
   <div *ngIf="!isLoading">
     <ion-card *ngFor="let stuffs of loadedSportStuff" text-center class="myDesign" [routerLink]="['/', 'sport-stuff', stuffs.id]">
-      <img [src]="stuffs.imgUrl"/>
+      <div class="my-design">
+        <img class="image" [src]="stuffs.imgUrl"/>
+      </div>
       <ion-card-content>
         <ion-card-title text-center>
           {{stuffs.name}}
         </ion-card-title>
-        <p>Price: {{ stuffs.price }}</p>
+        <p><ion-icon src="assets\icon\price.svg"></ion-icon> {{ stuffs.price }}</p>
       </ion-card-content>
     </ion-card>
   </div>

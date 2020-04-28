@@ -13,8 +13,7 @@
       <ion-row>
         <ion-col size="12" sm-size="8" offset-sm="2">
           <ion-item>
-            <ion-label position="floating">Description</ion-label>
-            <ion-textarea rows="4" formControlName="content"></ion-textarea>
+            <ion-textarea rows="4" formControlName="content" placeholder="Write here..."></ion-textarea>
           </ion-item>
           <div text-end>
             <ion-button (click)="onCreatePost()" [disabled]="!form.valid">
@@ -34,9 +33,14 @@
     </ion-card-header>
     <ion-virtual-scroll [items]="loadedPosts">
       <ion-item [routerLink]="['/', 'forum', post.id]" *virtualItem="let post">
-        <ion-card-content>
-          <p>{{ post.posterId }}: {{ post.content }}</p>
-        </ion-card-content>
+        <ion-thumbnail slot="start">
+          <ion-avatar>
+            <img src="assets\icon\default-image.png"/>
+          </ion-avatar>
+        </ion-thumbnail>
+        <ion-label>
+          <h2> {{ post.content }}</h2>
+        </ion-label>
       </ion-item>
     </ion-virtual-scroll>
   </ion-card>

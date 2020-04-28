@@ -25,7 +25,7 @@ export class ForumPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.postSub = this.forumService.posts.subscribe(posts => {
-      this.loadedPosts = posts;
+      this.loadedPosts = posts.reverse();
     });
     this.form = new FormGroup({
       content: new FormControl(null, {

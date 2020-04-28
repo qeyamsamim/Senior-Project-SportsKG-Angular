@@ -7,29 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-        <div text-center *ngIf="isLoading">
-          <ion-spinner color="primary"></ion-spinner>
-        </div>
-        <ion-virtual-scroll [items]="loadedNews" *ngIf="!isLoading">
-          <ion-item [routerLink]="['/', 'news', news.id]" detail *virtualItem="let news">
-            <ion-thumbnail slot="start">
-              <ion-img [src]="news.imgUrl"></ion-img>
-            </ion-thumbnail>
-            <ion-label>
-              <h2>{{ news.title }}</h2>
-            </ion-label>
-          </ion-item>
-        </ion-virtual-scroll>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content> -->
-
-<ion-content padding>
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" text-center>
@@ -43,7 +21,7 @@
             </ion-thumbnail>
             <ion-label>
               <h2>{{ news.title }}</h2>
-              <!-- <p>{{ fields.address }}</p> -->
+              <p>{{ news.text }}</p>
             </ion-label>
           </ion-item>
         </ion-virtual-scroll>

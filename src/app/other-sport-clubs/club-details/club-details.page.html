@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2">
+      <ion-col size="12" size-sm="8" offset-sm="2"> -->
         <div text-center *ngIf="isLoading">
           <ion-spinner color="primary"></ion-spinner>
         </div>
@@ -18,14 +18,14 @@
           <ion-card-title padding text-center>{{ sportClubs.name }}</ion-card-title>
           <ion-img role="button" (click)="onShowFullMap()" [src]="sportClubs.location.staticMapImgUrl"></ion-img>
             <div padding>
-              <p> {{ sportClubs.description }}</p>
-              <p>Address: {{ sportClubs.address }}</p>
-              <p>Contact Number: {{ sportClubs.contactNum }}</p>
-              <h6>Photos</h6>
+              <p text-justify> {{ sportClubs.description }}</p>
+              <p><b>Address:</b> {{ sportClubs.address }}</p>
+              <p><b>Contact Number:</b> {{ sportClubs.contactNum }}</p>
+              <h6><b>Photos</b></h6>
               <ion-img [src]="sportClubs.imgUrl"></ion-img>
             </div>
         </ion-card>
-      </ion-col>
+      <!-- </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>

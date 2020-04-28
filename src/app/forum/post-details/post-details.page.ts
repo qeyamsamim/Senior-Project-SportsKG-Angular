@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Post } from '../forum.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ForumService } from '../forum.service';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommentsService } from './comments.service';
+import { Comment } from './comment.model';
 
 @Component({
   selector: 'app-post-details',
@@ -12,17 +14,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./post-details.page.scss'],
 })
 export class PostDetailsPage implements OnInit, OnDestroy {
-  post: Post;
+  @Input() post: Post;
   postSub: Subscription;
   isLoading = false;
   form: FormGroup;
+  loadedComments: Comment[];
+  commentSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private forumService: ForumService,
     private alertCtlr: AlertController,
-    private router: Router
+    private router: Router,
+    private commentsService: CommentsService,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -49,6 +55,9 @@ export class PostDetailsPage implements OnInit, OnDestroy {
           }]
         }).then(alertEl => alertEl.present());
       });
+      this.commentSub = this.commentsService.comments.subscribe(comments => {
+        this.loadedComments = comments.reverse();
+      });
       this.form = new FormGroup({
         comment: new FormControl(null, {
           updateOn: 'blur',
@@ -58,13 +67,34 @@ export class PostDetailsPage implements OnInit, OnDestroy {
     });
   }
 
+  ionViewWillEnter() {
+    this.isLoading = true;
+    this.commentsService.fetchComment().subscribe(() => {
+      this.isLoading = false;
+    });
+  }
+
   onCreateComment() {
-    console.log(this.form.value);
+    if (!this.form.valid) {
+      return;
+    }
+    this.loadingCtrl.create({
+      message: 'Posting Comment...'
+    }).then(loadingEl => {
+      loadingEl.present();
+      this.commentsService.addComment(this.form.value.comment, this.post.id).subscribe(() => {
+        loadingEl.dismiss();
+        this.form.reset();
+      });
+    });
   }
 
   ngOnDestroy() {
     if (!this.postSub) {
       this.postSub.unsubscribe();
+    }
+    if (!this.commentSub) {
+      this.commentSub.unsubscribe();
     }
   }
 

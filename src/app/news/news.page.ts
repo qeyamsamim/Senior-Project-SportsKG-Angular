@@ -19,7 +19,7 @@ export class NewsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.newsSub = this.newsService.news.subscribe(news => {
-      this.loadedNews = news;
+      this.loadedNews = news.reverse();
     });
   }
 

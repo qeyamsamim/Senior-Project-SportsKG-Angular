@@ -21,8 +21,8 @@
   <ion-card *ngIf="!isLoading">
     <ion-card-title text-center padding>Latest News</ion-card-title>
     <ion-slides [options]="other">
-      <ion-slide *ngFor="let news of loadedNews | slice:0:4">
-        <img [src]="news.imgUrl" [routerLink]="['/', 'news', news.id]"/>
+      <ion-slide class="my-design" *ngFor="let news of loadedNews | slice:0:5">
+        <img class="image" [src]="news.imgUrl" [routerLink]="['/', 'news', news.id]"/>
       </ion-slide>
     </ion-slides>
   </ion-card>
